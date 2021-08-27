@@ -23,6 +23,7 @@ import {
 import Login from "./components/Login";
 import SignUp from "./components/SignUp";
 import MainScreen from "./components/MainScreen";
+import ChartScreen from "./components/ChartScreen";
 
 export default function App() {
   const [currentPage, openPage] = React.useState("login");
@@ -32,6 +33,8 @@ export default function App() {
         return <SignUp openPage={openPage} />;
       case "mainScreen":
         return <MainScreen openPage={openPage} />;
+      case "chartScreen":
+        return <ChartScreen openPage={openPage} />;
       default:
         return <Login openPage={openPage} />;
     }

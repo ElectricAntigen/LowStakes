@@ -20,51 +20,54 @@ import {
   Spacer,
   FlatList,
 } from "native-base";
+import { Pressable } from "react-native";
 
 const StockLine = (props) => (
-  <HStack flex={1} alignItems="center" w="100%">
-    <Box
-      space={20}
-      w="100%"
-      display="flex"
-      flexDirection="row"
-      justifyContent="space-between"
-      border={1}
-      borderColor="lightgray"
-      paddingLeft={2}
-      paddingRight={2}
-      bg={props.bg}
-    >
-      <Box w="50%" ph={10} alignItems="flex-start" justifyContent="center">
-        <Heading paddingLeft={5}>{props.symbol}</Heading>
-      </Box>
+  <Pressable onPress={() => props.openPage("chartScreen")}>
+    <HStack flex={1} alignItems="center" w="100%">
       <Box
-        w="15%"
-        alignItems="flex-end"
-        justifyContent="center"
-        flex={1}
-        paddingRight={5}
-        my={2}
+        space={20}
+        w="100%"
+        display="flex"
+        flexDirection="row"
+        justifyContent="space-between"
+        border={1}
+        borderColor="lightgray"
+        paddingLeft={2}
+        paddingRight={2}
+        bg={props.bg}
       >
-        <Text>{props.quantity}</Text>
+        <Box w="50%" ph={10} alignItems="flex-start" justifyContent="center">
+          <Heading paddingLeft={5}>{props.symbol}</Heading>
+        </Box>
+        <Box
+          w="15%"
+          alignItems="flex-end"
+          justifyContent="center"
+          flex={1}
+          paddingRight={5}
+          my={2}
+        >
+          <Text>{props.quantity}</Text>
+        </Box>
+        <Box
+          bg={props.good ? "rgb(215,0,0)" : "rgb(0,215,0)"}
+          size={16}
+          rounded="md"
+          alignItems="flex-end"
+          justifyContent="center"
+          flex={1}
+          paddingRight={5}
+          my={2}
+        >
+          <Text color="white">{props.price}</Text>
+        </Box>
       </Box>
-      <Box
-        bg={props.good ? "rgb(215,0,0)" : "rgb(0,215,0)"}
-        size={16}
-        rounded="md"
-        alignItems="flex-end"
-        justifyContent="center"
-        flex={1}
-        paddingRight={5}
-        my={2}
-      >
-        <Text color="white">{props.price}</Text>
-      </Box>
-    </Box>
-  </HStack>
+    </HStack>
+  </Pressable>
 );
 
-export default function MainScreen() {
+export default function MainScreen(props) {
   const data = [
     { symbol: "AMAZ", price: 12.7, quantity: 12, good: true },
     { symbol: "AMD", price: 22.5, quantity: 25, good: false },
@@ -86,6 +89,7 @@ export default function MainScreen() {
             good={item.good}
             quantity={item.quantity}
             bg={item.index % 2 === 0 ? "white" : "lightgrey"}
+            openPage={props.openPage}
           />
         )}
         keyExtractor={(item) => item.symbol}
