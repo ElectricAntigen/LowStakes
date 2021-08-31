@@ -11,3 +11,6 @@ web-build/
 .vscode
 .DS_Store
 
+
+.fake
+.ionide
