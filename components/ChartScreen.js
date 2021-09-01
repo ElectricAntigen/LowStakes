@@ -20,8 +20,8 @@ import ChartJS from "./Chart";
 export default function Details(props) {
   // const details = props.details
 
-  const currentPrice = props.data[props.data.length-1]
-  const open = props.data[0]
+  const currentPrice = props.data[props.data.length-1]?.ticker
+  const open = props.data[0]?.ticker
   
   const details = {
     symbol: "TSLA",
@@ -33,8 +33,8 @@ export default function Details(props) {
     date: "Nov 12, 9:53 AM EST",
     open: open,
     prevClose: 350.51,
-    high: Math.max(...props.data),
-    low: Math.min(...props.data),
+    high: Math.max(...props.data.map(b => b?.ticker)),
+    low: Math.min(...props.data.map(b => b?.ticker)),
   };
 
   function toFixedTag(val) {

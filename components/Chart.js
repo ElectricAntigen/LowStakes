@@ -34,7 +34,7 @@ const Chart = (props) => {
   return (
     <Center flex={1} bg="grey">
       <VictoryChart width={350} theme={VictoryTheme.material}>
-        <VictoryLine data={props.data} x="quarter" y="earnings" />
+        <VictoryLine data={props.data} x="time" y="ticker" />
       </VictoryChart>
     </Center>
   );
