@@ -1,21 +1,5 @@
+import moment from "moment";
 import * as React from "react";
-import { MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
-import {
-  NativeBaseProvider,
-  Box,
-  Text,
-  Heading,
-  VStack,
-  FormControl,
-  Input,
-  Link,
-  Button,
-  Icon,
-  IconButton,
-  HStack,
-  Divider,
-} from "native-base";
-import { useEffect } from "react";
 import ChartScreen from "./ChartScreen"
 
 const data = []
@@ -38,6 +22,7 @@ export default function Generator(props) {
     React.useEffect(() => {
         data.push(ticker)
         addPoints(props.quantity)
+        setTicker(data[data.length-1])
         const interval = setInterval(() => {
             setTicker(addPoint);
         }, 1000);
