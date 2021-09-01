@@ -16,10 +16,10 @@ export default function App() {
       case "mainScreen":
         return <MainScreen openPage={openPage} />;
       case "chartScreen":
-        return <Generator openPage={openPage} startPrice={100} quantity={100}/>;
+        return <Generator openPage={openPage} startPrice={100.0} quantity={100}/>;
       default:
         return <Login openPage={openPage} />;
     }
-  }
+  } 
   return <NativeBaseProvider>{navigate(currentPage)}</NativeBaseProvider>;
 }

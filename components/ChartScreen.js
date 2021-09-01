@@ -20,19 +20,26 @@ import ChartJS from "./Chart";
 export default function Details(props) {
   // const details = props.details
 
+  const currentPrice = props.data[props.data.length-1]
+  const open = props.data[0]
+  
   const details = {
     symbol: "TSLA",
     name: "Tesla Inc.",
-    price: 342.37,
+    price: currentPrice,
     currency: "USD",
-    change: -8.14,
-    changePercent: -2.32,
+    change: currentPrice - open,
+    changePercent: (currentPrice - open)/open*100,
     date: "Nov 12, 9:53 AM EST",
-    open: 348.37,
+    open: open,
     prevClose: 350.51,
-    high: 349.78,
-    low: 343.82,
+    high: Math.max(...props.data),
+    low: Math.min(...props.data),
   };
+
+  function toFixedTag(val) {
+    return (val !== undefined && Number.isFinite(val)) ? val.toFixed(2) : ""
+  }
 
   // const data = [
   //   { quarter: 1, earnings: 13000 },
@@ -71,10 +78,10 @@ export default function Details(props) {
         <Heading>{details.name}</Heading>
         <Text>{details.symbol}</Text>
         <Row pt={2} alignItems={"flex-end"}>
-          <Heading>{details.price} </Heading>
+          <Heading>{toFixedTag(details.price)} </Heading>
           <Text pb={1}>{details.currency} </Text>
           <Text pb={1} color={"#B22222"}>
-            {details.change} ({details.changePercent}%){" "}
+            {toFixedTag(details.change)} ({toFixedTag(details.changePercent)}%){" "}
           </Text>
         </Row>
         <Text>{details.date}</Text>
@@ -93,13 +100,13 @@ export default function Details(props) {
               <Text color="white" bold={true}>
                 Open
               </Text>
-              <Text>{details.open}</Text>
+              <Text>{toFixedTag(details.open)}</Text>
             </Row>
             <Row w={"50%"} justifyContent="space-between" pl={1}>
               <Text color="white" bold={true}>
                 Previous close
               </Text>
-              <Text>{details.prevClose}</Text>
+              <Text>{toFixedTag(details.prevClose)}</Text>
             </Row>
           </Row>
           <Row>
@@ -107,13 +114,13 @@ export default function Details(props) {
               <Text color="white" bold={true}>
                 High
               </Text>
-              <Text>{details.high}</Text>
+              <Text>{toFixedTag(details.high)}</Text>
             </Row>
             <Row w={"50%"} justifyContent="space-between" pl={1}>
               <Text color="white" bold={true}>
                 Low
               </Text>
-              <Text>{details.low}</Text>
+              <Text>{toFixedTag(details.low)}</Text>
             </Row>
           </Row>
         </Box>
