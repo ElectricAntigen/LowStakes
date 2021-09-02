@@ -20,8 +20,11 @@ import ChartJS from "./Chart";
 export default function Details(props) {
   // const details = props.details
 
-  const currentPrice = props.data[props.data.length-1]?.ticker
+  const lastPoint = props.data[props.data.length-1]
+  const currentPrice = lastPoint?.ticker
   const open = props.data[0]?.ticker
+  const hourAgo = new Date(Date.now())
+  hourAgo.setHours(hourAgo.getHours()-1)
   
   const details = {
     symbol: "TSLA",
@@ -30,11 +33,11 @@ export default function Details(props) {
     currency: "USD",
     change: currentPrice - open,
     changePercent: (currentPrice - open)/open*100,
-    date: "Nov 12, 9:53 AM EST",
+    date: lastPoint?.time?.toString(),
     open: open,
     prevClose: 350.51,
-    high: Math.max(...props.data.map(b => b?.ticker)),
-    low: Math.min(...props.data.map(b => b?.ticker)),
+    high: lastPoint?.high,
+    low: lastPoint?.low,
   };
 
   function toFixedTag(val) {
@@ -49,6 +52,7 @@ export default function Details(props) {
   // ];
 
   const [pressed, setPressed] = React.useState(0);
+  const dataToDisplay = pressed === 0 ? props.data?.filter(b => b.time > hourAgo) : props.data
 
   const SmallRow = (props) => (
     <Row w={"50%"} justifyContent="space-between" px={1}>
@@ -140,7 +144,7 @@ export default function Details(props) {
           {pressed}
         </Text>
       </Center>
-      <ChartJS data={props.data} />
+      <ChartJS data={dataToDisplay} />
     </Box>
   );
 }

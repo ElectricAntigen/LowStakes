@@ -16,7 +16,7 @@ export default function App() {
       case "mainScreen":
         return <MainScreen openPage={openPage} />;
       case "chartScreen":
-        return <Generator openPage={openPage} startPrice={100.0} quantity={100}/>;
+        return <Generator openPage={openPage} startPrice={327.78} quantity={100}/>;
       default:
         return <Login openPage={openPage} />;
     }
