@@ -21,23 +21,20 @@ import {
   FlatList,
 } from "native-base";
 import { StyleSheet } from "react-native";
-import {
-  VictoryBar,
+import { //Importing all necessary resources from victory native.
   VictoryChart,
   VictoryTheme,
   VictoryLine,
-  VictoryAnimation,
-  VictoryCandlestick,
 } from "victory-native";
 
-const Chart = (props) => {
+const LineChart = (props) => { //Defining the display of the graph.
   return (
     <Center flex={1} bg="grey">
-      <VictoryChart width={350} theme={VictoryTheme.material}>
+      <VictoryChart width={400} height={500} theme={VictoryTheme.material}>
         <VictoryLine data={props.data} x="time" y="ticker" />
       </VictoryChart>
     </Center>
   );
 };
 
-export default Chart;
+export default LineChart; //Returning the chart.

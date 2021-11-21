@@ -15,11 +15,10 @@ import {
   HStack,
   Divider,
 } from "native-base";
-import { useEffect } from "react";
 
 export default function Login(props) {
   return (
-    <Box safeArea flex={1} p={2} w="90%" mx="auto">
+    <Box safeArea flex={1} bg={"grey"} p={2} w="90%" mx="auto">
       <Heading size="lg" color="primary.500">
         Welcome 
       </Heading>
@@ -43,19 +42,12 @@ export default function Login(props) {
             Password
           </FormControl.Label>
           <Input type="password" />
-          {/* <Link
-            _text={{ fontSize: "xs", fontWeight: "700", color: "cyan.500" }}
-            alignSelf="flex-end"
-            mt={1}
-          >
-            Forget Password?
-          </Link> */}
         </FormControl>
         <VStack space={2}>
           <Button
             colorScheme="cyan"
             _text={{ color: "white" }}
-            onPress={() => props.openPage("mainScreen")}
+            onPress={() => props.openPage({page: "mainScreen", selectedStock: null})}
           >
             Login
           </Button>
@@ -99,7 +91,7 @@ export default function Login(props) {
           </Text>
           <Link
             _text={{ color: "cyan.500", bold: true, fontSize: "sm" }}
-            onPress={() => props.openPage("signUp")}
+            onPress={() => props.openPage({page: "signUp"})}
           >
             Sign Up
           </Link>

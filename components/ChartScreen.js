@@ -1,34 +1,27 @@
 import React from "react";
 import {
   Box,
-  Image,
   Text,
   Button,
-  Link,
   Row,
   Center,
   Heading,
-  Switch,
-  useColorMode,
-  NativeBaseProvider,
-  extendTheme,
   Column,
-  Code,
 } from "native-base";
-import ChartJS from "./Chart";
+import LineChart from "./LineChart";
+import CandleChart from "./CandleChart";
 
 export default function Details(props) {
-  // const details = props.details
-
+  //const details = props.details
+  const hourAgo = new Date(Date.now())
+  hourAgo.setHours(hourAgo.getHours()-1)
   const lastPoint = props.data[props.data.length-1]
   const currentPrice = lastPoint?.ticker
   const open = props.data[0]?.ticker
-  const hourAgo = new Date(Date.now())
-  hourAgo.setHours(hourAgo.getHours()-1)
-  
+  const propsComp = props?.compData
   const details = {
-    symbol: "TSLA",
-    name: "Tesla Inc.",
+    symbol: propsComp[props.selectedStock]?.symbol,
+    name: propsComp[props.selectedStock]?.name,
     price: currentPrice,
     currency: "USD",
     change: currentPrice - open,
@@ -43,13 +36,6 @@ export default function Details(props) {
   function toFixedTag(val) {
     return (val !== undefined && Number.isFinite(val)) ? val.toFixed(2) : ""
   }
-
-  // const data = [
-  //   { quarter: 1, earnings: 13000 },
-  //   { quarter: 2, earnings: 16500 },
-  //   { quarter: 3, earnings: 14250 },
-  //   { quarter: 4, earnings: 19000 },
-  // ];
 
   const [pressed, setPressed] = React.useState(0);
   const dataToDisplay = pressed === 0 ? props.data?.filter(b => b.time > hourAgo) : props.data
@@ -91,14 +77,6 @@ export default function Details(props) {
         <Text>{details.date}</Text>
 
         <Box pt={2}>
-          {/* <Row px={-1}>
-                        <SmallRow caption="Open" value={details.open} />
-                        <SmallRow caption="Prev close" value={details.prevClose} />
-                    </Row>
-                    <Row px={-1}>
-                        <SmallRow caption="High" value={details.high} />
-                        <SmallRow caption="Low" value={details.low} />
-                    </Row> */}
           <Row>
             <Row w={"50%"} justifyContent="space-between" pr={1}>
               <Text color="white" bold={true}>
@@ -144,7 +122,7 @@ export default function Details(props) {
           {pressed}
         </Text>
       </Center>
-      <ChartJS data={dataToDisplay} />
+      <CandleChart data={dataToDisplay} />
     </Box>
   );
 }

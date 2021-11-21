@@ -18,7 +18,7 @@ import {
 
 export default function SignUp(props) {
   return (
-    <Box safeArea flex={1} p={2} w="90%" mx="auto">
+    <Box safeArea flex={1} bg={"grey"} p={2} w="90%" mx="auto">
       <Heading size="lg" color="primary.500">
         Welcome
       </Heading>
@@ -55,7 +55,7 @@ export default function SignUp(props) {
           <Button
             colorScheme="cyan"
             _text={{ color: "white" }}
-            onPress={() => props.openPage("mainScreen")}
+            onPress={() => props.openPage({page: "mainScreen"})}
           >
             Sign Up
           </Button>
@@ -99,7 +99,7 @@ export default function SignUp(props) {
           </Text>
           <Link
             _text={{ color: "cyan.500", bold: true, fontSize: "sm" }}
-            onPress={() => props.openPage("login")}
+            onPress={() => props.openPage({page: "login"})}
           >
             Login
           </Link>

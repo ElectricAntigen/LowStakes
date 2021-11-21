@@ -23,7 +23,7 @@ import {
 import { Pressable } from "react-native";
 
 const StockLine = (props) => (
-  <Pressable onPress={() => props.openPage("chartScreen")}>
+  <Pressable onPress={() => props.openPage({ page: "chartScreen", selectedStock: props.index })}>
     <HStack flex={1} alignItems="center" w="100%">
       <Box
         space={20}
@@ -35,7 +35,7 @@ const StockLine = (props) => (
         borderColor="lightgray"
         paddingLeft={2}
         paddingRight={2}
-        bg={props.bg}
+        bg={"grey"}
       >
         <Box w="50%" ph={10} alignItems="flex-start" justifyContent="center">
           <Heading paddingLeft={5}>{props.symbol}</Heading>
@@ -68,32 +68,29 @@ const StockLine = (props) => (
 );
 
 export default function MainScreen(props) {
-  const data = [
-    { symbol: "AMAZ", price: 12.7, quantity: 12, good: true },
-    { symbol: "AMD", price: 22.5, quantity: 25, good: false },
-    { symbol: "AAPL", price: 66.9, quantity: 11, good: true },
-    { symbol: "BBC", price: 13.2, quantity: 23, good: false },
-    { symbol: "BTC", price: 98.1, quantity: 55, good: true },
-  ];
+  const compData = props.compData
   return (
-    <NativeBaseProvider>
-      <FlatList
+    compData !== undefined  
+      ? <FlatList
         paddingTop={20}
-        data={data.map((item, index) => {
+        bg = {"grey"}
+        data={compData.map((item, index) => {
           return { ...item, index };
         })}
         renderItem={({ item }) => (
           <StockLine
+            index={item.index}
             symbol={item.symbol}
             price={item.price}
             good={item.good}
             quantity={item.quantity}
             bg={item.index % 2 === 0 ? "white" : "lightgrey"}
             openPage={props.openPage}
+            compData = {compData}
           />
         )}
         keyExtractor={(item) => item.symbol}
       />
-    </NativeBaseProvider>
+      : <Center/>
   );
 }

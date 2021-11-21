@@ -7,16 +7,31 @@ import SignUp from "./components/SignUp";
 import MainScreen from "./components/MainScreen";
 import Generator from "./components/Generator";
 
-export default function App() {
-  const [currentPage, openPage] = React.useState("login");
-  function navigate(page) {
+const compData = [ //The declaration of the record array.
+  { symbol: "AMAZ", name: "Amazon.com, Inc.", price: 3446.57, quantity: 12, good: true }, //Each line is a separate record.
+  { symbol: "AMD", name: "Advanced Micro Devices, Inc.", price: 121.16, quantity: 25, good: false },
+  { symbol: "AAPL", name: "Apple, Inc.", price: 152.57, quantity: 11, good: true }, 
+  { symbol: "BP", name: "British Petroleum plc", price: 353.15, quantity: 23, good: false },
+  { symbol: "CAJ", name: "Canon, Inc.", price: 22.49, quantity: 55, good: true },
+  { symbol: "DAL", name: "Delta Air Lines, Inc.", price: 39.05, quantity: 55, good: true },
+  { symbol: "XOM", name: "Exxon Mobil Corporation", price: 63.88, quantity: 55, good: true },
+  { symbol: "FB", name: "Facebook, Inc.", price: 315.44, quantity: 55, good: true },
+  { symbol: "GME", name: "GameStop Corp.", price: 180.58, quantity: 55, good: true },
+]; //The order of details in each record is: acronymised name, name of the stock, price, quantity, and whether the price
+//   increased or decreased.
+
+export default function App(props) {
+  const [currentPage, openPage] = React.useState({page: "login", selectedStock: null });
+  function navigate({page, selectedStock}) {
     switch (page) {
       case "signUp":
         return <SignUp openPage={openPage} />;
       case "mainScreen":
-        return <MainScreen openPage={openPage} />;
+        return <MainScreen openPage={openPage} compData = {compData} />;
       case "chartScreen":
-        return <Generator openPage={openPage} startPrice={327.78} quantity={100}/>;
+        console.log(selectedStock)
+        return <Generator openPage={openPage} //startPrice={selectedStock.price} 
+         compData = {compData} selectedStock = {selectedStock}/>;
       default:
         return <Login openPage={openPage} />;
     }
