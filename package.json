@@ -12,13 +12,24 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "test": "jest"
+  },
+  "jest": {
+    "preset": "jest-expo",
+    "transformIgnorePatterns": [
+      "node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|react-native-svg)"
+    ]
   },
   "dependencies": {
     "@expo/webpack-config": "^0.14.0",
     "@react-navigation/drawer": "^6.1.4",
     "@react-navigation/native": "^6.0.2",
+    "@react-navigation/native-stack": "^6.2.5",
+    "dataclass": "^2.0.0",
+    "date-fns": "^2.26.0",
     "expo": "~42.0.0",
+    "expo-sqlite": "~9.2.1",
     "expo-status-bar": "~1.0.4",
     "moment": "^2.29.1",
     "native-base": "^3.0.3",
@@ -32,16 +43,18 @@
     "react-native-web": "~0.13.12",
     "styled-components": "^5.3.0",
     "styled-system": "^5.1.5",
-    "victory-native": "^35.3.3",
-    "expo-sqlite": "~9.2.1"
+    "victory-native": "^35.3.3"
   },
   "devDependencies": {
-    "@babel/core": "^7.9.0"
+    "@babel/core": "^7.9.0",
+    "jest": "^26.6.3",
+    "jest-expo": "^43.0.1",
+    "react-test-renderer": "^16.13.1"
   },
   "bugs": {
-    "url": "https://github.com/GeekyAnts/nativebase-templates/issues"
+    "url": "https://github.com/ElectricAntigen/LowStakes/issues"
   },
-  "homepage": "https://github.com/GeekyAnts/nativebase-templates#readme",
-  "author": "Aditya Jamuar",
-  "private": true
+  "homepage": "https://github.com/ElectricAntigen/LowStakes/tree/master/#readme",
+  "author": "Maxym Habarov",
+  "private": false
 }

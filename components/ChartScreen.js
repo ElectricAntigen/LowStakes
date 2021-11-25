@@ -1,4 +1,5 @@
 import React from "react";
+import { Exchange, getLastHour } from "../logic/simulator";
 import {
   Box,
   Text,
@@ -11,34 +12,34 @@ import {
 import LineChart from "./LineChart";
 import CandleChart from "./CandleChart";
 
-export default function Details(props) {
-  //const details = props.details
-  const hourAgo = new Date(Date.now())
-  hourAgo.setHours(hourAgo.getHours()-1)
-  const lastPoint = props.data[props.data.length-1]
-  const currentPrice = lastPoint?.ticker
-  const open = props.data[0]?.ticker
-  const propsComp = props?.compData
-  const details = {
-    symbol: propsComp[props.selectedStock]?.symbol,
-    name: propsComp[props.selectedStock]?.name,
-    price: currentPrice,
-    currency: "USD",
-    change: currentPrice - open,
-    changePercent: (currentPrice - open)/open*100,
-    date: lastPoint?.time?.toString(),
-    open: open,
-    prevClose: 350.51,
-    high: lastPoint?.high,
-    low: lastPoint?.low,
-  };
+export default function ChartScreen(props) {
+  const [[stocks, ii], setStocks] = React.useState([props.exchange.stocks, 0])
+  let i = 0;
+  React.useEffect(() => {
+      const interval = setInterval(() => setStocks([props.exchange.stocks, ++i]), 300);
+      return () => clearInterval(interval);
+  }, []);
+
+  const stock = stocks[props.selectedStock];
+  const lastPoint = stock.currentPricePoint;
 
   function toFixedTag(val) {
     return (val !== undefined && Number.isFinite(val)) ? val.toFixed(2) : ""
   }
 
   const [pressed, setPressed] = React.useState(0);
-  const dataToDisplay = pressed === 0 ? props.data?.filter(b => b.time > hourAgo) : props.data
+  // const dataToDisplay = pressed === 0 ? props.data?.filter(b => b.time > hourAgo) : props.data
+  let dataToDisplay = []; 
+  switch (pressed) {
+    case 0: dataToDisplay = stock.pricePoints10s; break;
+    case 1: dataToDisplay = stock.pricePoints30s; break;
+    case 2: dataToDisplay = stock.pricePoints; break;
+    case 3: dataToDisplay = stock.pricePoints; break;
+    case 4: dataToDisplay = [...stock.historicalPricePoints.week, stock.currentPricePoint]; break;
+    case 5: dataToDisplay = [...stock.historicalPricePoints.month, stock.currentPricePoint]; break;
+    case 6: dataToDisplay = [...stock.historicalPricePoints.month3, stock.currentPricePoint]; break;
+    case 7: dataToDisplay = [...stock.historicalPricePoints.year, stock.currentPricePoint]; break;  
+  }
 
   const SmallRow = (props) => (
     <Row w={"50%"} justifyContent="space-between" px={1}>
@@ -65,16 +66,16 @@ export default function Details(props) {
   return (
     <Box flex={1}>
       <Column bg={"grey"} pt={10} px={5}>
-        <Heading>{details.name}</Heading>
-        <Text>{details.symbol}</Text>
+        <Heading>{stock.name}</Heading>
+        <Text>{stock.symbol}</Text>
         <Row pt={2} alignItems={"flex-end"}>
-          <Heading>{toFixedTag(details.price)} </Heading>
-          <Text pb={1}>{details.currency} </Text>
+          <Heading>{toFixedTag(lastPoint.price)} </Heading>
+          <Text pb={1}>{stock.currency} </Text>
           <Text pb={1} color={"#B22222"}>
-            {toFixedTag(details.change)} ({toFixedTag(details.changePercent)}%){" "}
+            {toFixedTag(stock.change)} ({toFixedTag(stock.changePercent)}%){" "}
           </Text>
         </Row>
-        <Text>{details.date}</Text>
+        <Text>{lastPoint.time.toString()}</Text>
 
         <Box pt={2}>
           <Row>
@@ -82,13 +83,13 @@ export default function Details(props) {
               <Text color="white" bold={true}>
                 Open
               </Text>
-              <Text>{toFixedTag(details.open)}</Text>
+              <Text>{toFixedTag(lastPoint.open)}</Text>
             </Row>
             <Row w={"50%"} justifyContent="space-between" pl={1}>
               <Text color="white" bold={true}>
                 Previous close
               </Text>
-              <Text>{toFixedTag(details.prevClose)}</Text>
+              <Text>{toFixedTag(lastPoint.prevClose)}</Text>
             </Row>
           </Row>
           <Row>
@@ -96,24 +97,24 @@ export default function Details(props) {
               <Text color="white" bold={true}>
                 High
               </Text>
-              <Text>{toFixedTag(details.high)}</Text>
+              <Text>{toFixedTag(lastPoint.high)}</Text>
             </Row>
             <Row w={"50%"} justifyContent="space-between" pl={1}>
               <Text color="white" bold={true}>
                 Low
               </Text>
-              <Text>{toFixedTag(details.low)}</Text>
+              <Text>{toFixedTag(lastPoint.low)}</Text>
             </Row>
           </Row>
         </Box>
         <Row pt={3} width={"100%"}>
-          <RangeButton idx={0}>1h</RangeButton>
-          <RangeButton idx={1}>1d</RangeButton>
-          <RangeButton idx={2}>1w</RangeButton>
-          <RangeButton idx={3}>1m</RangeButton>
-          <RangeButton idx={4}>3m</RangeButton>
-          <RangeButton idx={5}>6m</RangeButton>
-          <RangeButton idx={6}>9m</RangeButton>
+          <RangeButton idx={0}>10s</RangeButton>
+          <RangeButton idx={1}>30s</RangeButton>
+          <RangeButton idx={2}>1h</RangeButton>
+          <RangeButton idx={3}>1d</RangeButton>
+          <RangeButton idx={4}>1w</RangeButton>
+          <RangeButton idx={5}>1m</RangeButton>
+          <RangeButton idx={6}>3m</RangeButton>
           <RangeButton idx={7}>1y</RangeButton>
         </Row>
       </Column>

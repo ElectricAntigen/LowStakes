@@ -31,7 +31,7 @@ const CandleChart = (props) => {
   return (
     <Center flex={1} bg="grey">
       <VictoryChart width={350} height={500} theme={VictoryTheme.material}>
-        <VictoryCandlestick data={props.data} x="time" close="ticker" low="llow" high = "lhigh"/>
+        <VictoryCandlestick data={props.data} x="time" open="open" close="price" low="low" high = "high"/>
       </VictoryChart>
     </Center>
   );

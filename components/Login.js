@@ -31,7 +31,7 @@ export default function Login(props) {
           <FormControl.Label
             _text={{ color: "muted.700", fontSize: "sm", fontWeight: 600 }}
           >
-            Email ID
+            User ID
           </FormControl.Label>
           <Input />
         </FormControl>

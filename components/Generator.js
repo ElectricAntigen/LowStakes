@@ -32,8 +32,6 @@ function addPoint(unit, startPrice) {
         high: newTicker > lastPoint.high ? newTicker : lastPoint.high,
         low: newTicker < lastPoint.low ? newTicker : lastPoint.low,
         open: lastPoint.ticker,
-        lhigh: Math.max(newTicker + Math.random()*5, lastPoint.ticker),
-        llow: Math.min(newTicker - Math.random()*5, lastPoint.ticker),
         // close: newTicker
     })
     return newTicker

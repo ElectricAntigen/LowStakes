@@ -5,7 +5,8 @@ import {
 import Login from "./components/Login";
 import SignUp from "./components/SignUp";
 import MainScreen from "./components/MainScreen";
-import Generator from "./components/Generator";
+import ChartScreen from "./components/ChartScreen";
+import { Exchange, StockInfo } from "./logic/simulator";
 
 const compData = [ //The declaration of the record array.
   { symbol: "AMAZ", name: "Amazon.com, Inc.", price: 3446.57, quantity: 12, good: true }, //Each line is a separate record.
@@ -20,6 +21,8 @@ const compData = [ //The declaration of the record array.
 ]; //The order of details in each record is: acronymised name, name of the stock, price, quantity, and whether the price
 //   increased or decreased.
 
+const exchange = new Exchange(compData, 100, true);
+
 export default function App(props) {
   const [currentPage, openPage] = React.useState({page: "login", selectedStock: null });
   function navigate({page, selectedStock}) {
@@ -27,11 +30,10 @@ export default function App(props) {
       case "signUp":
         return <SignUp openPage={openPage} />;
       case "mainScreen":
-        return <MainScreen openPage={openPage} compData = {compData} />;
+        return <MainScreen openPage={openPage} exchange={exchange} />;
       case "chartScreen":
         console.log(selectedStock)
-        return <Generator openPage={openPage} //startPrice={selectedStock.price} 
-         compData = {compData} selectedStock = {selectedStock}/>;
+        return <ChartScreen openPage = {openPage} exchange={exchange} selectedStock = {selectedStock}/>;
       default:
         return <Login openPage={openPage} />;
     }
