@@ -13,6 +13,7 @@ import LineChart from "./LineChart";
 import CandleChart from "./CandleChart";
 
 export default function ChartScreen(props) {
+<<<<<<< HEAD
   const [pressed, setPressed] = React.useState(0);
   const [[stocks, ii], setStocks] = React.useState([props.exchange.stocks, 0])
   let i = 0;
@@ -22,18 +23,38 @@ export default function ChartScreen(props) {
   }, []);
 
   const stock = stocks[props.route.params.selectedStock];
+=======
+  const [[stocks, ii], setStocks] = React.useState([props.exchange.stocks, 0])
+  let i = 0;
+  React.useEffect(() => {
+      const interval = setInterval(() => setStocks([props.exchange.stocks, ++i]), 300);
+      return () => clearInterval(interval);
+  }, []);
+
+  const stock = stocks[props.selectedStock];
+>>>>>>> 6f627ae86ceabb858120fa9e059d8b5c2612e413
   const lastPoint = stock.currentPricePoint;
 
   function toFixedTag(val) {
     return (val !== undefined && Number.isFinite(val)) ? val.toFixed(2) : ""
   }
 
+<<<<<<< HEAD
+=======
+  const [pressed, setPressed] = React.useState(0);
+  // const dataToDisplay = pressed === 0 ? props.data?.filter(b => b.time > hourAgo) : props.data
+>>>>>>> 6f627ae86ceabb858120fa9e059d8b5c2612e413
   let dataToDisplay = []; 
   switch (pressed) {
     case 0: dataToDisplay = stock.pricePoints10s; break;
     case 1: dataToDisplay = stock.pricePoints30s; break;
+<<<<<<< HEAD
     case 2: dataToDisplay = stock.pricePoints1h; break;
     case 3: dataToDisplay = stock.pricePoints1d; break;
+=======
+    case 2: dataToDisplay = stock.pricePoints; break;
+    case 3: dataToDisplay = stock.pricePoints; break;
+>>>>>>> 6f627ae86ceabb858120fa9e059d8b5c2612e413
     case 4: dataToDisplay = [...stock.historicalPricePoints.week, stock.currentPricePoint]; break;
     case 5: dataToDisplay = [...stock.historicalPricePoints.month, stock.currentPricePoint]; break;
     case 6: dataToDisplay = [...stock.historicalPricePoints.month3, stock.currentPricePoint]; break;
@@ -92,8 +113,15 @@ export default function ChartScreen(props) {
   );
 
   return (
+<<<<<<< HEAD
     <Box flex={1} bg={"grey"}>
       <Column pt={5} px={5} >
+=======
+    <Box flex={1}>
+      <Column bg={"grey"} pt={10} px={5}>
+        <Heading>{stock.name}</Heading>
+        <Text>{stock.symbol}</Text>
+>>>>>>> 6f627ae86ceabb858120fa9e059d8b5c2612e413
         <Row pt={2} alignItems={"flex-end"}>
           <Heading>{toFixedTag(lastPoint.price)} </Heading>
           <Text pb={1}>{stock.currency} </Text>

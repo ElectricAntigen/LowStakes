@@ -8,20 +8,31 @@ function newPoint(lastPoint, startPrice) {
     const delta = lastPoint.price > startPrice / 2 && lastPoint.price < startPrice * 1.5
         ? lastPoint.price/startPrice/2
         : 0.5
+<<<<<<< HEAD
     var price = Math.abs((delta < 5) 
         ? lastPoint.price + Math.round((Math.random() - delta) * 1000)/10
         : lastPoint.price + Math.round((Math.random()) * 1000)/10);
 
     var high = Math.max(lastPoint.price, price) + Math.round(Math.random(Math.random() * delta * 1000)) / 100;
     var low = Math.min(lastPoint.price, price) - Math.round(Math.random(Math.random() * delta * 1000)) / 100;
+=======
+    var price = (delta < 5) 
+        ? lastPoint.price + Math.round((Math.random() - delta) * 1000)/100
+        : lastPoint.price + Math.round((Math.random()) * 1000)/100;
+>>>>>>> 6f627ae86ceabb858120fa9e059d8b5c2612e413
     
     const d = addDays(new Date(lastPoint.time), 1);
     return PricePoint.create({
         time: d,
         open: lastPoint.price,
         price: price,
+<<<<<<< HEAD
         high: high,
         low: low,
+=======
+        high: price > lastPoint.high ? price : lastPoint.high,
+        low: price < lastPoint.low ? price : lastPoint.low,
+>>>>>>> 6f627ae86ceabb858120fa9e059d8b5c2612e413
         prevClose: lastPoint.price
     })
 }
@@ -87,6 +98,7 @@ export class Exchange {
     constructor(stockInfos, interval, simulate) {
         this.stocks = stockInfos.map(si => new Stock(si.symbol, si.name, generateHistory(si.price)));
         this.simulate = simulate;
+<<<<<<< HEAD
         this.simulationLoop = setTimeout(() => { 
             setInterval(() => {
                 try {
@@ -98,6 +110,13 @@ export class Exchange {
                 }
             }, interval);
         }, 1000);
+=======
+        this.simulationLoop = setInterval(() => {
+            if (this.simulate) {
+                this.stocks.forEach(stock => this.randomOrder(stock));
+            }
+        }, interval);
+>>>>>>> 6f627ae86ceabb858120fa9e059d8b5c2612e413
     }
 
     stock(symbol) {
@@ -106,7 +125,11 @@ export class Exchange {
 
     randomOrder(stock) {
         const step = Math.round(Math.random() * 1000.0) / 100.0;
+<<<<<<< HEAD
         const price = Math.abs(stock.price > 10.0 ? stock.price + step - 5.0 : stock.price + step);
+=======
+        const price = stock.price > 10.0 ? stock.price + step - 5.0 : stock.price + step;
+>>>>>>> 6f627ae86ceabb858120fa9e059d8b5c2612e413
         const isBuy = Math.random() < 0.5;
         const quantity = Math.round(Math.random() * 20); 
         const order = Order.create({

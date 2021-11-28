@@ -72,6 +72,7 @@ export default function MainScreen(props) {
   const [[stocks, ii], setStocks] = React.useState([props.exchange.stocks, 0])
   let i = 0;
   React.useEffect(() => {
+<<<<<<< HEAD
       const interval = setInterval(() => setStocks([props.exchange.stocks, ++i]), 500);
       // const interval = setInterval(() => setStocks([[{symbol: "aa", price: 100.0, change: 50, openQuantity: 2, }], ++i]), 500);
       return () => clearInterval(interval);
@@ -97,5 +98,33 @@ export default function MainScreen(props) {
       )}
       keyExtractor={(item) => item.symbol}
     />
+=======
+      const interval = setInterval(() => setStocks([props.exchange.stocks, ++i]), 100);
+      return () => clearInterval(interval);
+  }, []);
+  return (
+    stocks  
+      ? <FlatList
+        paddingTop={20}
+        bg = {"grey"}
+        data={stocks.map((item, index) => {
+          item.index = index;
+          return item;
+        })}
+        renderItem={({item}) => (
+          <StockLine
+            index={item.index}
+            symbol={item.symbol}
+            price={item.price.toFixed(2)}
+            good={item.change > 0}
+            quantity={item.openQuantity}
+            bg={item.index % 2 === 0 ? "white" : "lightgrey"}
+            openPage={props.openPage}
+          />
+        )}
+        keyExtractor={(item) => item.symbol}
+      />
+      : <Center/>
+>>>>>>> 6f627ae86ceabb858120fa9e059d8b5c2612e413
   );
 }
