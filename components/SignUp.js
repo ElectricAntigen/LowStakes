@@ -55,7 +55,7 @@ export default function SignUp(props) {
           <Button
             colorScheme="cyan"
             _text={{ color: "white" }}
-            onPress={() => props.openPage({page: "mainScreen"})}
+            onPress={() => props.navigation.navigate("mainScreen")}
           >
             Sign Up
           </Button>
@@ -99,7 +99,7 @@ export default function SignUp(props) {
           </Text>
           <Link
             _text={{ color: "cyan.500", bold: true, fontSize: "sm" }}
-            onPress={() => props.openPage({page: "login"})}
+            onPress={() => props.navigation.navigate("login")}
           >
             Login
           </Link>

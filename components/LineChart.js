@@ -30,8 +30,8 @@ import { //Importing all necessary resources from victory native.
 const LineChart = (props) => { //Defining the display of the graph.
   return (
     <Center flex={1} bg="grey">
-      <VictoryChart width={400} height={500} theme={VictoryTheme.material}>
-        <VictoryLine data={props.data} x="time" y="ticker" />
+      <VictoryChart width={400} height={400} theme={VictoryTheme.material}>
+        <VictoryLine data={props.data} x="time" y="price" />
       </VictoryChart>
     </Center>
   );
