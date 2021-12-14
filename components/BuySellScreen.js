@@ -11,12 +11,57 @@ import {
     Select,
     CheckIcon,
   } from "native-base";
+<<<<<<< HEAD
 import { Order } from "../logic/stock";
+=======
+
+const OkButton = (props) => {
+    const toast = useToast();
+    return <Button
+      flexGrow={1}
+      borderRadius={0}
+      px={0}
+      py={2}
+      onPress={() => {
+        const order = Order.create({
+            symbol: props.stock.symbol,
+            isBuy: isBuy,
+            price: price,
+            quantity: quantity
+        });
+          toast.show({
+            description: `Order submitted`,
+          });
+          setTimeout(() => props.navigation.goBack(), 5000);
+        }
+      }
+      bg="rgb(0,215,0)"
+      w="50%"
+    >
+      OK
+    </Button>
+  };
+
+  const CancelButton = (props) => (
+    <Button
+      flexGrow={1}
+      borderRadius={0}
+      px={0}
+      py={2}
+      onPress={() => props.navigation.goBack()}
+      bg="rgb(215,0,0)"
+      w="50%"
+    >
+      Cancel
+    </Button>
+  );
+>>>>>>> b9649a8f01f647f4b84b28a62b6b3db246b81136
 
 export default function BuySellScreen(props) {
     // const [ticker, setTicker] = React.useState(props.startPrice)
     // const startPrice = props.selectedStock.price
     let [quantity, setQuantity] = React.useState("5");
+<<<<<<< HEAD
     let selectedStock = props.route.params.selectedStock;
     let [price, setPrice] = React.useState(props.route.params.price);
 
@@ -69,6 +114,9 @@ export default function BuySellScreen(props) {
       </Button>
     );
 
+=======
+    let [price, setPrice] = React.useState("" + props.stock.price);
+>>>>>>> b9649a8f01f647f4b84b28a62b6b3db246b81136
     return (
         <Center>
             <Column bg={"grey"} pt={5} px={5} w="100%" h="100%">
@@ -76,7 +124,11 @@ export default function BuySellScreen(props) {
                     <Column>
                         <Row justifyContent="center">
                             <Heading color="white">
+<<<<<<< HEAD
                                 Confirm {props.route.params.isBuy ? "Buying" : "Selling"}
+=======
+                                Confirm Selling
+>>>>>>> b9649a8f01f647f4b84b28a62b6b3db246b81136
                             </Heading>
                         </Row>
                         <Row pt={5} justifyContent="center">
@@ -102,7 +154,11 @@ export default function BuySellScreen(props) {
                         </Row>
                         <Row pt={5} justifyContent="center">
                             <Select
+<<<<<<< HEAD
                                 selectedValue={price.toFixed(2)}
+=======
+                                selectedValue={"" + price}
+>>>>>>> b9649a8f01f647f4b84b28a62b6b3db246b81136
                                 minWidth="200"
                                 // accessibilityLabel="Choose Service"
                                 // placeholder="Choose Service"
@@ -111,6 +167,7 @@ export default function BuySellScreen(props) {
                                     endIcon: <CheckIcon size="5" />,
                                 }}
                                 mt={1}
+<<<<<<< HEAD
                                 onValueChange={(itemValue) => setPrice(parseInt(itemValue))}
                                 color="white"
                             >
@@ -121,6 +178,18 @@ export default function BuySellScreen(props) {
                                 <Select.Item label={(price + 5 ).toFixed(2)} value={(price + 5 ).toFixed(2)} />
                                 <Select.Item label={(price + 10).toFixed(2)} value={(price + 10).toFixed(2)} />
                                 <Select.Item label={(price + 15).toFixed(2)} value={(price + 15).toFixed(2)} />
+=======
+                                onValueChange={(itemValue) => setQuantity(itemValue)}
+                                color="white"
+                            >
+                                <Select.Item label={"" + (price - 15)} value={"" + (price - 15)} />
+                                <Select.Item label={"" + (price - 10)} value={"" + (price - 10)} />
+                                <Select.Item label={"" + (price - 5 )} value={"" + (price - 5)} />
+                                <Select.Item label={"" + price} value={"" + price} />
+                                <Select.Item label={"" + (price + 5 )} value={"" + (price + 5)} />
+                                <Select.Item label={"" + (price + 10)} value={"" + (price + 10)} />
+                                <Select.Item label={"" + (price + 15)} value={"" + (price + 15)} />
+>>>>>>> b9649a8f01f647f4b84b28a62b6b3db246b81136
                             </Select>
                         </Row>
                         <Row pt={5}>

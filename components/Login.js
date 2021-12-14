@@ -20,8 +20,16 @@ export default function Login(props) {
   const [user, setUser] = React.useState({ userId: "maxym", pwd: "password", showPwd: false })
   return (
     <Box safeArea flex={1} bg={"grey"} p={2} w="100%" mx="auto">
+<<<<<<< HEAD
       <Heading size="lg" color="primary.500" textAlign="center">
         Low Stakes 
+=======
+      <Heading size="lg" color="primary.500">
+        Welcome 
+      </Heading>
+      <Heading color="muted.400" size="xs">
+        Sign in to continue!
+>>>>>>> b9649a8f01f647f4b84b28a62b6b3db246b81136
       </Heading>
 
 

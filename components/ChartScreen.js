@@ -14,6 +14,7 @@ import LineChart from "./LineChart";
 import CandleChart from "./CandleChart";
 
 export default function ChartScreen(props) {
+<<<<<<< HEAD
   const [pressed, setPressed] = React.useState(0);
   const stocks = props.exchange.stocks;
   const [tick, setTick] = React.useState(0)
@@ -22,18 +23,59 @@ export default function ChartScreen(props) {
       const interval = setInterval(() => InteractionManager.runAfterInteractions(() => setTick(++i)), 2000);
       return () => clearInterval(interval);
   }, []);
+=======
+<<<<<<< HEAD
+  const [pressed, setPressed] = React.useState(0);
+  const [[stocks, ii], setStocks] = React.useState([props.exchange.stocks, 0])
+  let i = 0;
+  React.useEffect(() => {
+      const interval = setInterval(() => setStocks([props.exchange.stocks, ++i]), 2000);
+      return () => clearInterval(interval);
+  }, []);
+
+  const stock = stocks[props.route.params.selectedStock];
+=======
+  const [[stocks, ii], setStocks] = React.useState([props.exchange.stocks, 0])
+  let i = 0;
+  React.useEffect(() => {
+      const interval = setInterval(() => setStocks([props.exchange.stocks, ++i]), 300);
+      return () => clearInterval(interval);
+  }, []);
+
+  const stock = stocks[props.selectedStock];
+>>>>>>> 6f627ae86ceabb858120fa9e059d8b5c2612e413
+  const lastPoint = stock.currentPricePoint;
+>>>>>>> b9649a8f01f647f4b84b28a62b6b3db246b81136
 
   const stock = stocks[props.route.params.selectedStock];
   const lastPoint = stock.currentPricePoint;
 
+<<<<<<< HEAD
   const toFixedTag = (val) => val !== undefined && Number.isFinite(val) ? val.toFixed(2) : ""
 
+=======
+<<<<<<< HEAD
+=======
+  const [pressed, setPressed] = React.useState(0);
+  // const dataToDisplay = pressed === 0 ? props.data?.filter(b => b.time > hourAgo) : props.data
+>>>>>>> 6f627ae86ceabb858120fa9e059d8b5c2612e413
+>>>>>>> b9649a8f01f647f4b84b28a62b6b3db246b81136
   let dataToDisplay = []; 
   switch (pressed) {
     case 0: dataToDisplay = stock.pricePoints10s; break;
     case 1: dataToDisplay = stock.pricePoints30s; break;
+<<<<<<< HEAD
     case 2: dataToDisplay = stock.pricePoints1h; break;
     case 3: dataToDisplay = stock.pricePoints1d; break;
+=======
+<<<<<<< HEAD
+    case 2: dataToDisplay = stock.pricePoints1h; break;
+    case 3: dataToDisplay = stock.pricePoints1d; break;
+=======
+    case 2: dataToDisplay = stock.pricePoints; break;
+    case 3: dataToDisplay = stock.pricePoints; break;
+>>>>>>> 6f627ae86ceabb858120fa9e059d8b5c2612e413
+>>>>>>> b9649a8f01f647f4b84b28a62b6b3db246b81136
     case 4: dataToDisplay = [...stock.historicalPricePoints.week, stock.currentPricePoint]; break;
     case 5: dataToDisplay = [...stock.historicalPricePoints.month, stock.currentPricePoint]; break;
     case 6: dataToDisplay = [...stock.historicalPricePoints.month3, stock.currentPricePoint]; break;
@@ -56,7 +98,11 @@ export default function ChartScreen(props) {
       px={0}
       py={2}
       onPress={() => setPressed(props.idx)}
+<<<<<<< HEAD
       bg={props.idx === pressed ? "black" : "grey"}
+=======
+      bg={props.idx === pressed ? "black" : ""}
+>>>>>>> b9649a8f01f647f4b84b28a62b6b3db246b81136
       contentStyle={{width: '100%'}}
     >
       {props.children}
@@ -69,6 +115,7 @@ export default function ChartScreen(props) {
       borderRadius={0}
       px={0}
       py={2}
+<<<<<<< HEAD
       onPress={() => props.navigation.navigate("buySellScreen", { 
           selectedStock: props.index, 
           selectedStockName: `${stock.name} (${stock.symbol})`,
@@ -76,6 +123,10 @@ export default function ChartScreen(props) {
           isBuy: true,
           price: stock.price 
         })}
+=======
+      onPress={() => props.navigation.navigate("buySellScreen", 
+        { selectedStock: props.index, selectedStockName: `${props.stock.name} (${props.stock.symbol})`})}
+>>>>>>> b9649a8f01f647f4b84b28a62b6b3db246b81136
       bg="rgb(0,215,0)"
     >
       BUY
@@ -88,6 +139,7 @@ export default function ChartScreen(props) {
       borderRadius={0}
       px={0}
       py={2}
+<<<<<<< HEAD
       onPress={() => props.navigation.navigate("buySellScreen", { 
           selectedStock: props.index, 
           selectedStockName: `${props.stock.name} (${props.stock.symbol})`,
@@ -95,12 +147,17 @@ export default function ChartScreen(props) {
           isBuy: false,
           price: stock.price 
         })}
+=======
+      onPress={() => props.navigation.navigate("buySellScreen", 
+        { selectedStock: props.index, selectedStockName: `${props.stock.name} (${props.stock.symbol})`})}
+>>>>>>> b9649a8f01f647f4b84b28a62b6b3db246b81136
       bg="rgb(215,0,0)"
     >
       SELL
     </Button>
   );
 
+<<<<<<< HEAD
   const OrderHistoryButton = (props) => (
     <Button
       flexGrow={1}
@@ -121,6 +178,18 @@ export default function ChartScreen(props) {
   return (
     <Box flex={1} bg={"grey"}>
       <Column pt={1} px={5} >
+=======
+  return (
+<<<<<<< HEAD
+    <Box flex={1} bg={"grey"}>
+      <Column pt={5} px={5} >
+=======
+    <Box flex={1}>
+      <Column bg={"grey"} pt={10} px={5}>
+        <Heading>{stock.name}</Heading>
+        <Text>{stock.symbol}</Text>
+>>>>>>> 6f627ae86ceabb858120fa9e059d8b5c2612e413
+>>>>>>> b9649a8f01f647f4b84b28a62b6b3db246b81136
         <Row pt={2} alignItems={"flex-end"}>
           <Heading>{toFixedTag(lastPoint.price)} </Heading>
           <Text pb={1}>{stock.currency} </Text>
@@ -132,8 +201,15 @@ export default function ChartScreen(props) {
 
         <Box pt={2}>
           <Row>
+<<<<<<< HEAD
             <Row w="50%" justifyContent="space-between" pr={1}>
               <Text color="white" bold={true}>Open</Text>
+=======
+            <Row w={"50%"} justifyContent="space-between" pr={1}>
+              <Text color="white" bold={true}>
+                Open
+              </Text>
+>>>>>>> b9649a8f01f647f4b84b28a62b6b3db246b81136
               <Text>{toFixedTag(lastPoint.open)}</Text>
             </Row>
             <Row w="50%" justifyContent="space-between" pl={1}>
@@ -158,7 +234,11 @@ export default function ChartScreen(props) {
             </Row>
           </Row>
         </Box>
+<<<<<<< HEAD
         <Row pt={3} w="100%">
+=======
+        <Row pt={3} width={"100%"}>
+>>>>>>> b9649a8f01f647f4b84b28a62b6b3db246b81136
           <RangeButton idx={0}>10s</RangeButton>
           <RangeButton idx={1}>30s</RangeButton>
           <RangeButton idx={2}>1h</RangeButton>
@@ -171,6 +251,7 @@ export default function ChartScreen(props) {
         <Row>
           {pressed < 4 ? <LineChart data={dataToDisplay} /> : <CandleChart data={dataToDisplay} />}
         </Row>
+<<<<<<< HEAD
         <Row pt={0} w="100%" justifyContent="space-between">
           <BuyButton stock={stock} {...props} />
           <SellButton stock={stock} {...props} />
@@ -178,6 +259,12 @@ export default function ChartScreen(props) {
         <Row pt={3} w="100%" justifyContent="center">
           <OrderHistoryButton stock={stock} {...props} />
         </Row>
+=======
+        <Row pt={3} width={"100%"} justifyContent="space-between">
+          <BuyButton stock={stock} {...props} />
+          <SellButton stock={stock} {...props} />
+        </Row>
+>>>>>>> b9649a8f01f647f4b84b28a62b6b3db246b81136
       </Column>
     </Box>
   );

@@ -6,11 +6,22 @@ import Login from "./components/Login";
 import SignUp from "./components/SignUp";
 import MainScreen from "./components/MainScreen";
 import ChartScreen from "./components/ChartScreen";
+<<<<<<< HEAD
 import BuySellScreen from "./components/BuySellScreen";
 import OrderHistoryScreen from "./components/OrderHistoryScreen";
 import { Exchange } from "./logic/simulator";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+=======
+<<<<<<< HEAD
+import { Exchange } from "./logic/simulator";
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import BuySellScreen from "./components/BuySellScreen";
+=======
+import { Exchange, StockInfo } from "./logic/simulator";
+>>>>>>> 6f627ae86ceabb858120fa9e059d8b5c2612e413
+>>>>>>> b9649a8f01f647f4b84b28a62b6b3db246b81136
 
 const compData = [ //The declaration of the record array.
   { symbol: "AMAZ", name: "Amazon.com, Inc.", price: 3446.57, quantity: 12, good: true }, //Each line is a separate record.
@@ -27,6 +38,10 @@ const compData = [ //The declaration of the record array.
 
 const exchange = new Exchange(compData, 100, true);
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> b9649a8f01f647f4b84b28a62b6b3db246b81136
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -48,9 +63,33 @@ export default function App() {
         <Stack.Screen name="mainScreen" options={({ title: 'Stocks' })}>{props => <MainScreen {...props} exchange={exchange} />}</Stack.Screen>
         <Stack.Screen name="chartScreen" options={({ route }) => ({ title: route.params.selectedStockName })}>{props => <ChartScreen {...props} exchange={exchange} />}</Stack.Screen>
         <Stack.Screen name="buySellScreen" options={({ route }) => ({ title: route.params.selectedStockName })}>{props => <BuySellScreen {...props} exchange={exchange} />}</Stack.Screen>
+<<<<<<< HEAD
         <Stack.Screen name="orderHistoryScreen" options={({ route }) => ({ title: route.params.selectedStockName })}>{props => <OrderHistoryScreen {...props} exchange={exchange} />}</Stack.Screen>
         <Stack.Screen name="orderMatches" options={({ route }) => ({ title: route.params.selectedStockName })}>{props => <OrderMatchesScreen {...props} exchange={exchange} />}</Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
   </NativeBaseProvider>
+=======
+      </Stack.Navigator>
+    </NavigationContainer>
+  </NativeBaseProvider>
+=======
+export default function App(props) {
+  const [currentPage, openPage] = React.useState({page: "login", selectedStock: null });
+  function navigate({page, selectedStock}) {
+    switch (page) {
+      case "signUp":
+        return <SignUp openPage={openPage} />;
+      case "mainScreen":
+        return <MainScreen openPage={openPage} exchange={exchange} />;
+      case "chartScreen":
+        console.log(selectedStock)
+        return <ChartScreen openPage = {openPage} exchange={exchange} selectedStock = {selectedStock}/>;
+      default:
+        return <Login openPage={openPage} />;
+    }
+  } 
+  return <NativeBaseProvider>{navigate(currentPage)}</NativeBaseProvider>;
+>>>>>>> 6f627ae86ceabb858120fa9e059d8b5c2612e413
+>>>>>>> b9649a8f01f647f4b84b28a62b6b3db246b81136
 }

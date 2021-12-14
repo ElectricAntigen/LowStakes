@@ -1,6 +1,9 @@
 import { Data } from "dataclass";
 import { startOfToday, addDays, subDays, subMonths, subHours, subMinutes, subSeconds } from 'date-fns';
+<<<<<<< HEAD
 import { ThreeDotsIcon } from "native-base";
+=======
+>>>>>>> b9649a8f01f647f4b84b28a62b6b3db246b81136
 
 export class User extends Data {
     id = 0;
@@ -53,21 +56,44 @@ export class OrderReceipt extends Data {
 }
 
 export class PriceBucket {
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> b9649a8f01f647f4b84b28a62b6b3db246b81136
     price = 0.0;
     isBuy = true;
     openOrders = [];
     // quantity already matched on the first openOrder
     matchedQuantity = 0.0;
 
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> 6f627ae86ceabb858120fa9e059d8b5c2612e413
+>>>>>>> b9649a8f01f647f4b84b28a62b6b3db246b81136
     constructor(symbol, price) {
         this.symbol = symbol;
         this.price = price;
     }
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+    isBuy = true;
+    openOrders = [];
+    // quantity already matched on the first openOrder
+    matchedQuantity = 0.0;
+>>>>>>> 6f627ae86ceabb858120fa9e059d8b5c2612e413
+>>>>>>> b9649a8f01f647f4b84b28a62b6b3db246b81136
 
     openQuantity() {
         return this.openOrders.reduce((sum, order) => sum + order.quantity, 0) - this.matchedQuantity;
     }
 
+<<<<<<< HEAD
+=======
+    // returns OrderReceipt[]
+>>>>>>> b9649a8f01f647f4b84b28a62b6b3db246b81136
     process(order, remainingQuantity) {
         if (remainingQuantity === undefined) {
             remainingQuantity = order.quantity;
@@ -147,7 +173,11 @@ export class Stock {
     time = new Date();
     lastOrders = [];
     lastMatches = [];
+<<<<<<< HEAD
     lastLimits = 50;
+=======
+    lastLimits = 100;
+>>>>>>> b9649a8f01f647f4b84b28a62b6b3db246b81136
     orders = new Map();
     orderReceipts = new Map();
     buyPriceBuckets = [];
@@ -157,8 +187,16 @@ export class Stock {
     historicalPricePoints;
     pricePoints10s = [];
     pricePoints30s = [];
+<<<<<<< HEAD
     pricePoints1h = [];
     pricePoints1d = [];
+=======
+<<<<<<< HEAD
+    pricePoints1h = [];
+    pricePoints1d = [];
+=======
+>>>>>>> 6f627ae86ceabb858120fa9e059d8b5c2612e413
+>>>>>>> b9649a8f01f647f4b84b28a62b6b3db246b81136
 
     constructor(symbol, name, historicalPricePoints, open, prevClose) {
         this.symbol = symbol;
@@ -178,8 +216,16 @@ export class Stock {
         this.pricePoints = [ this.currentPricePoint ];
         this.pricePoints10s = [ this.currentPricePoint ];
         this.pricePoints30s = [ this.currentPricePoint ];
+<<<<<<< HEAD
         this.pricePoints1h = [ this.currentPricePoint ];
         this.pricePoints1d = [ this.currentPricePoint ];
+=======
+<<<<<<< HEAD
+        this.pricePoints1h = [ this.currentPricePoint ];
+        this.pricePoints1d = [ this.currentPricePoint ];
+=======
+>>>>>>> 6f627ae86ceabb858120fa9e059d8b5c2612e413
+>>>>>>> b9649a8f01f647f4b84b28a62b6b3db246b81136
     }
 
     get change() {
@@ -209,13 +255,30 @@ export class Stock {
             this.lastOrders.shift();
         }
 
+<<<<<<< HEAD
         let priceBucket;
+=======
+<<<<<<< HEAD
+        let priceBucket;
+=======
+        let priceBucket = null;
+>>>>>>> 6f627ae86ceabb858120fa9e059d8b5c2612e413
+>>>>>>> b9649a8f01f647f4b84b28a62b6b3db246b81136
         let receipts = [];
         if (order.isBuy) {
             let remainingQuantity = order.quantity;
             let popCount = 0;
             for (let i = 0; i < this.sellPriceBuckets.length; i++) {
                 priceBucket = this.sellPriceBuckets[i];
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+                if (priceBucket == null) {
+                    console.log(1);
+                }
+=======
+>>>>>>> 6f627ae86ceabb858120fa9e059d8b5c2612e413
+>>>>>>> b9649a8f01f647f4b84b28a62b6b3db246b81136
                 if (priceBucket.price > order.price) {
                     break;
                 }
@@ -229,7 +292,15 @@ export class Stock {
 
             if (remainingQuantity > 0) { // Add remaining to a buy bucket
                 let place = this.buyPriceBuckets.findIndex(pb => pb.price <= order.price);
+<<<<<<< HEAD
                 if (place = -1 || this.buyPriceBuckets.length == 0) {
+=======
+<<<<<<< HEAD
+                if (place = -1 || this.buyPriceBuckets.length == 0) {
+=======
+                if (place = -1) {
+>>>>>>> 6f627ae86ceabb858120fa9e059d8b5c2612e413
+>>>>>>> b9649a8f01f647f4b84b28a62b6b3db246b81136
                     priceBucket = new PriceBucket(this.symbol, order.price);
                     this.buyPriceBuckets.push(priceBucket);
                 } else if (this.buyPriceBuckets[place].price < order.price) {
@@ -247,6 +318,15 @@ export class Stock {
             let popCount = 0;
             for (let i = 0; i < this.buyPriceBuckets.length; i++) {
                 priceBucket = this.buyPriceBuckets[i];
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+                if (priceBucket == null) {
+                    console.log(2);
+                }
+=======
+>>>>>>> 6f627ae86ceabb858120fa9e059d8b5c2612e413
+>>>>>>> b9649a8f01f647f4b84b28a62b6b3db246b81136
                 if (priceBucket.price < order.price) {
                     break;
                 }
@@ -260,7 +340,15 @@ export class Stock {
 
             if (remainingQuantity > 0) { // Add remaining to a sell bucket
                 let place = this.sellPriceBuckets.findIndex(pb => pb.price <= order.price); 
+<<<<<<< HEAD
                 if (place = -1 || this.sellPriceBuckets.length == 0) {
+=======
+<<<<<<< HEAD
+                if (place = -1 || this.sellPriceBuckets.length == 0) {
+=======
+                if (place = -1) {
+>>>>>>> 6f627ae86ceabb858120fa9e059d8b5c2612e413
+>>>>>>> b9649a8f01f647f4b84b28a62b6b3db246b81136
                     priceBucket = new PriceBucket(this.symbol, order.price);
                     this.sellPriceBuckets.push(priceBucket);
                 } else if (this.sellPriceBuckets[place].price < order.price) {
@@ -279,8 +367,15 @@ export class Stock {
             this.lastMatches.shift();
         }
 
+<<<<<<< HEAD
         // Both buy and sell Buckets arrays are empty
         if (priceBucket == null) {
+=======
+<<<<<<< HEAD
+        // Both buy and sell Buckets arrays are empty
+        if (priceBucket == null) {
+            console.log(3 + " " + remainingQuantity);
+>>>>>>> b9649a8f01f647f4b84b28a62b6b3db246b81136
             priceBucket = new PriceBucket(this.symbol, order.price);
             if (order.isBuy) {
                 this.buyPriceBuckets.push(priceBucket);
@@ -288,6 +383,11 @@ export class Stock {
                 this.sellPriceBuckets.push(priceBucket);
             }
         }
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> 6f627ae86ceabb858120fa9e059d8b5c2612e413
+>>>>>>> b9649a8f01f647f4b84b28a62b6b3db246b81136
         let price = priceBucket.price;
         let previousPricePoint = this.currentPricePoint;
         this.currentPricePoint = PricePoint.create({
@@ -300,12 +400,23 @@ export class Stock {
         this.pricePoints.push(this.currentPricePoint);
         this.pricePoints10s.push(this.currentPricePoint);
         this.pricePoints30s.push(this.currentPricePoint);
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> b9649a8f01f647f4b84b28a62b6b3db246b81136
         this.pricePoints1h.push(this.currentPricePoint);
         this.pricePoints1d.push(this.currentPricePoint);
         if (this.pricePoints10s[0].time.getTime() < subSeconds(new Date(Date.now()), 10)) this.pricePoints10s.shift();
         if (this.pricePoints30s[0].time.getTime() < subSeconds(new Date(Date.now()), 30)) this.pricePoints30s.shift();
         if (this.pricePoints1h[0].time.getTime() < subSeconds(new Date(Date.now()), 10)) this.pricePoints1h.shift();
         if (this.pricePoints1d[0].time.getTime() < subSeconds(new Date(Date.now()), 30)) this.pricePoints1d.shift();
+<<<<<<< HEAD
+=======
+=======
+        if (this.pricePoints10s[0].time.getTime() < subSeconds(new Date(Date.now()), 10)) this.pricePoints10s.shift();
+        if (this.pricePoints30s[0].time.getTime() < subSeconds(new Date(Date.now()), 30)) this.pricePoints30s.shift();
+>>>>>>> 6f627ae86ceabb858120fa9e059d8b5c2612e413
+>>>>>>> b9649a8f01f647f4b84b28a62b6b3db246b81136
 
         this.orders.set(order.id, [order, ticket]);
         this.orderReceipts.set(order.id, []);
@@ -317,8 +428,18 @@ export class Stock {
         return [ticket, receipts];
     }
 };
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> b9649a8f01f647f4b84b28a62b6b3db246b81136
 
 export class Account extends Data {
     ownQuantities = [];
     orders = [];
+<<<<<<< HEAD
 }
+=======
+}
+=======
+>>>>>>> 6f627ae86ceabb858120fa9e059d8b5c2612e413
+>>>>>>> b9649a8f01f647f4b84b28a62b6b3db246b81136
