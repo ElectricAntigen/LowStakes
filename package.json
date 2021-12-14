@@ -12,36 +12,50 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "test": "jest"
+  },
+  "jest": {
+    "preset": "jest-expo",
+    "transformIgnorePatterns": [
+      "node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|react-native-svg)"
+    ]
   },
   "dependencies": {
-    "@expo/webpack-config": "^0.14.0",
+    "@expo/webpack-config": "^0.16.2",
     "@react-navigation/drawer": "^6.1.4",
     "@react-navigation/native": "^6.0.2",
-    "expo": "~42.0.0",
-    "expo-status-bar": "~1.0.4",
+    "@react-navigation/native-stack": "^6.2.5",
+    "dataclass": "^2.0.0",
+    "date-fns": "^2.26.0",
+    "expo": "^43.0.0",
+    "expo-sqlite": "~10.0.3",
+    "expo-status-bar": "~1.1.0",
     "moment": "^2.29.1",
-    "native-base": "^3.0.3",
-    "react": "16.13.1",
-    "react-dom": "16.13.1",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
-    "react-native-reanimated": "^2.2.0",
-    "react-native-safe-area-context": "3.2.0",
-    "react-native-screens": "~3.4.0",
-    "react-native-svg": "^12.1.1",
-    "react-native-web": "~0.13.12",
-    "styled-components": "^5.3.0",
+    "native-base": "^3.2.0",
+    "react": "17.0.1",
+    "react-dom": "17.0.1",
+    "react-native": "0.64.3",
+    "react-native-reanimated": "~2.2.0",
+    "react-native-safe-area-context": "3.3.2",
+    "react-native-screens": "~3.8.0",
+    "react-native-svg": "12.1.1",
+    "react-native-vector-icons": "^9.0.0",
+    "react-native-web": "0.17.1",
+    "styled-components": "^5.3.3",
     "styled-system": "^5.1.5",
-    "victory-native": "^35.3.3",
-    "expo-sqlite": "~9.2.1"
+    "victory-native": "^35.3.3"
   },
   "devDependencies": {
-    "@babel/core": "^7.9.0"
+    "@babel/core": "^7.12.9",
+    "jest": "^26.6.3",
+    "jest-expo": "^43.0.0",
+    "react-test-renderer": "17.0.1"
   },
   "bugs": {
-    "url": "https://github.com/GeekyAnts/nativebase-templates/issues"
+    "url": "https://github.com/ElectricAntigen/LowStakes/issues"
   },
-  "homepage": "https://github.com/GeekyAnts/nativebase-templates#readme",
-  "author": "Aditya Jamuar",
-  "private": true
+  "homepage": "https://github.com/ElectricAntigen/LowStakes/tree/master/#readme",
+  "author": "Maxym Habarov",
+  "private": false
 }

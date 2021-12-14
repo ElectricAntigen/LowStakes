@@ -17,23 +17,31 @@ import {
 } from "native-base";
 
 export default function Login(props) {
+  const [user, setUser] = React.useState({ userId: "maxym", pwd: "password", showPwd: false })
   return (
-    <Box safeArea flex={1} bg={"grey"} p={2} w="90%" mx="auto">
-      <Heading size="lg" color="primary.500">
-        Welcome 
+    <Box safeArea flex={1} bg={"grey"} p={2} w="100%" mx="auto">
+      <Heading size="lg" color="primary.500" textAlign="center">
+        Low Stakes 
       </Heading>
-      <Heading color="muted.400" size="xs">
-        Sign in to continue!
-      </Heading>
+
 
       <VStack space={2} mt={5}>
         <FormControl>
           <FormControl.Label
             _text={{ color: "muted.700", fontSize: "sm", fontWeight: 600 }}
           >
-            Email ID
+            User ID
           </FormControl.Label>
-          <Input />
+          <Input value={user.userId} onChangeText={t => setUser({...user, userId: t})}
+            color="white"
+            InputLeftElement={
+              <Icon
+                as={<MaterialCommunityIcons name="account" />}
+                size={5}
+                ml="2"
+                color="muted.400"
+              />
+            }/>
         </FormControl>
         <FormControl mb={5}>
           <FormControl.Label
@@ -41,13 +49,25 @@ export default function Login(props) {
           >
             Password
           </FormControl.Label>
-          <Input type="password" />
+          <Input onChangeText={t => setUser({...user, pwd: t})}
+            type={user.showPwd ? "text" : "password"}
+            color="white"
+            InputLeftElement={
+              <Icon
+                as={<MaterialCommunityIcons name="eye-off" onPress={() => setUser({...user, showPwd: !user.showPwd})} />}
+                size={5}
+                ml="2"
+                color="muted.400"
+              />
+            }
+            placeholder="Password"
+            value={user.pwd} />
         </FormControl>
         <VStack space={2}>
           <Button
             colorScheme="cyan"
             _text={{ color: "white" }}
-            onPress={() => props.openPage({page: "mainScreen", selectedStock: null})}
+            onPress={() => props.navigation.navigate("mainScreen")}
           >
             Login
           </Button>
@@ -91,7 +111,7 @@ export default function Login(props) {
           </Text>
           <Link
             _text={{ color: "cyan.500", bold: true, fontSize: "sm" }}
-            onPress={() => props.openPage({page: "signUp"})}
+            onPress={() => props.navigation.navigate("signUp")}
           >
             Sign Up
           </Link>
